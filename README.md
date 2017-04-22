@@ -55,3 +55,11 @@
 
 * <a href="http://getbootstrap.com/css/">Bootstrap CSS</a>
 * <a href="http://getbootstrap.com/components/">Bootstrap组件</a>
+
+
+## 对 index.html 进行的优化概述
+* 将print.css和Google Fonts css变为异步加载，通过添加 media:print 属性 和[ Web Font Loader ](https://www.lockedowndesign.com/load-google-fonts-asynchronously-for-page-speed/)来实现。
+* 将 style.css 嵌入 index.html 以缩短关键渲染路径长度。
+* 对index.html中引用的图片进行了压缩。
+
+最终[Google PageSpeed Insights 评分](https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fhuangziyu.github.io%2FWebsiteOptimization_zh%2F&tab=desktop)为 94 移动设备/96 桌面设备。
