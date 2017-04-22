@@ -10,14 +10,21 @@
     <!-- 嗯，web 字体对速度的影响有多大呢？测量一下吧 -->
     <!--<link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-    <script>
-        WebFont.load({
-            google: {
-                families: ['Open+Sans:400,700']
-            }
-        });
-    </script>
+    <script type="text/javascript">
+        //异步加载Google fonts的css文件以优化页面访问速度
+        WebFontConfig = {
+            google: { families: [ 'Open+Sans:400,700' ] }
+        };
+        (function() {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+            '://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+        })(); </script>
+
 
     <link href="css/style.css" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
     <link href="css/print.css" rel="stylesheet" media="print">
