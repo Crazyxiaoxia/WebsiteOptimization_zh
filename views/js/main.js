@@ -422,15 +422,14 @@ var resizePizzas = function(size) {
   function determineDx (size) {
       switch(size) {
         case "1":
-          dx = 25;
+          return 25;
         case "2":
-          dx = 33.33;
+          return 33.33;
         case "3":
-          dx = 0.5;
+          return 50;
         default:
-          console.log("bug in sizeSwitcher");
+          console.log("bug in determineDx");
       }
-    return dx;
   }
 
   // 遍历披萨的元素并改变它们的宽度
@@ -438,7 +437,7 @@ var resizePizzas = function(size) {
       var dx = determineDx(size);
       var objs = document.querySelectorAll(".randomPizzaContainer");
     for (var i = 0; i < objs.length; i++) {
-      objs[i].style.width = dx + "%";
+      objs[i].style.width = dx + '%';
     }
   }
 
