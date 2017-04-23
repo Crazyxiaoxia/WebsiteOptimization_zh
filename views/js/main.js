@@ -488,12 +488,10 @@ function logAverageFrame(times) {   // times参数是updatePositions()由User Ti
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-
+  
   var items = document.querySelectorAll('.mover');
-  for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-  }
+  var p = document.body.scrollTop / 1250;
+  window.requestAnimationFrame(function(){render(items,p)});
 
   // 再次使用User Timing API。这很值得学习
   // 能够很容易地自定义测量维度
@@ -505,6 +503,13 @@ function updatePositions() {
   }
 }
 
+function render(items,p){
+    for (var i = 0; i < items.length; i++) {
+      var phase = Math.sin( p + (i % 5));
+      items[i].style.transform = "translateX("+ (100 * phase) +"px)";
+    }
+};
+
 // 在页面滚动时运行updatePositions函数
 window.addEventListener('scroll', updatePositions);
 
@@ -512,14 +517,16 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  for (var i = 0; i < 100; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
+    elem.style.left = elem.basicLeft + 'px';
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
+    elem.style['will-change'] = "transform";
     document.getElementById("movingPizzas1").appendChild(elem);
   }
   updatePositions();
