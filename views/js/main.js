@@ -488,8 +488,8 @@ function logAverageFrame(times) {   // times参数是updatePositions()由User Ti
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-  //
 
+  //优化注释：使用requestAnimationFrame来优化动画，动画绘制操作都转移进新增的render函数中
   window.requestAnimationFrame(function(){render()});
 
   // 再次使用User Timing API。这很值得学习
@@ -501,7 +501,8 @@ function updatePositions() {
     logAverageFrame(timesToUpdatePosition);
   }
 }
-
+//优化注释：基本上实现了原来的updatePositions函数的功能，将一些操作从循环中移出以优化性能，
+//另外，用transform代替了left以避免强制同步布局
 function render(){
     var items = document.querySelectorAll('.mover');
     var p = document.body.scrollTop / 1250;
@@ -525,8 +526,10 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
-    elem.style.left = elem.basicLeft + 'px';
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
+    //优化注释：由于更改了移动pizza的css属性为transform故在这里初始化left
+    //给pizza增加will-change属性来避免图层重绘制
+    elem.style.left = elem.basicLeft + 'px';
     elem.style['will-change'] = "transform";
     document.getElementById("movingPizzas1").appendChild(elem);
   }
