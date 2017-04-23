@@ -488,10 +488,9 @@ function logAverageFrame(times) {   // times参数是updatePositions()由User Ti
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-  
-  var items = document.querySelectorAll('.mover');
-  var p = document.body.scrollTop / 1250;
-  window.requestAnimationFrame(function(){render(items,p)});
+  //
+
+  window.requestAnimationFrame(function(){render()});
 
   // 再次使用User Timing API。这很值得学习
   // 能够很容易地自定义测量维度
@@ -503,7 +502,9 @@ function updatePositions() {
   }
 }
 
-function render(items,p){
+function render(){
+    var items = document.querySelectorAll('.mover');
+    var p = document.body.scrollTop / 1250;
     for (var i = 0; i < items.length; i++) {
       var phase = Math.sin( p + (i % 5));
       items[i].style.transform = "translateX("+ (100 * phase) +"px)";
