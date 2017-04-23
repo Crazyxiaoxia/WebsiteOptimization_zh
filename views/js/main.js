@@ -434,6 +434,9 @@ var resizePizzas = function(size) {
 
   // 遍历披萨的元素并改变它们的宽度
   function changePizzaSizes(size) {
+      //优化注释：原来的changePizzaSize函数会在for循环中重新多次读取元素的offsetwidth，
+      //这会引起样式更改和重新布局，由于每个PizzaContainer的offsetwidth实际上是一样的，
+      //因此这是不必要的读取，故将其删去并简化。
       var dx = determineDx(size);
       var objs = document.querySelectorAll(".randomPizzaContainer");
     for (var i = 0; i < objs.length; i++) {
