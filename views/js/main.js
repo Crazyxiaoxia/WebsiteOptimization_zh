@@ -434,7 +434,7 @@ var resizePizzas = function(size) {
 
   // 遍历披萨的元素并改变它们的宽度
   function changePizzaSizes(size) {
-      //优化注释：原来的changePizzaSize函数会在for循环中重新多次读取元素的offsetwidth，
+      //原来的changePizzaSize函数会在for循环中重新多次读取元素的offsetwidth，
       //这会引起样式更改和重新布局，由于每个PizzaContainer的offsetwidth实际上是一样的，
       //因此这是不必要的读取，故将其删去并简化。
       var dx = determineDx(size);
@@ -489,8 +489,8 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  //优化注释：使用requestAnimationFrame来优化动画，动画绘制操作都转移进新增的render函数中
-  window.requestAnimationFrame(function(){render()});
+  //使用requestAnimationFrame来优化动画，动画绘制操作都转移进新增的render函数中
+  window.requestAnimationFrame(render);
 
   // 再次使用User Timing API。这很值得学习
   // 能够很容易地自定义测量维度
@@ -501,7 +501,7 @@ function updatePositions() {
     logAverageFrame(timesToUpdatePosition);
   }
 }
-//优化注释：基本上实现了原来的updatePositions函数的功能，将一些操作从循环中移出以优化性能，
+//基本上实现了原来的updatePositions函数的功能，将一些操作从循环中移出以优化性能，
 //另外，用transform代替了left以避免强制同步布局
 function render(){
     var items = document.querySelectorAll('.mover');
@@ -527,7 +527,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    //优化注释：由于更改了移动pizza的css属性为transform故在这里初始化left
+    //由于更改了移动pizza的css属性为transform故在这里初始化left
     //给pizza增加will-change属性来避免图层重绘制
     elem.style.left = elem.basicLeft + 'px';
     elem.style['will-change'] = "transform";
